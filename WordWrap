@@ -38,15 +38,15 @@ void WordWrap(int l[], int n, int M)
 						cost[i][j + i] = It_MAX;
 					else
 					{
+						spaceTillNow = M - (wordsTillNow + j);
 						//Additional one is consider space between two words in a line .- j
-						cost[i][j + i] = (M - (wordsTillNow + j)) * (M - (wordsTillNow + j)); // Ignore the first cell, because first item is taken by the line above you
+						cost[i][j + i] = spaceTillNow * spaceTillNow; // Ignore the first cell, because first item is taken by the line above you
 					}
 		    }
 			  
 		}
 
 	}
-
 
 
 }
