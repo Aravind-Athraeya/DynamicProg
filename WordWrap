@@ -26,24 +26,22 @@ void WordWrap(int l[], int n, int M)
 	for (int i = 0; i < n; i++){
 		int spaceTillNow = 0;
 		int wordsTillNow = 0;
-		for (int j = 0; j < n && j + i < n; j++){
+		for (int j = 0; j < n; j++){
 			if (cost[i][j] < 0)
-		     	cost[i][j] = 0;// Initiztize to zero to avoid unnecessary pointer -ve values here
-
-
-			wordsTillNow = wordsTillNow + l[j+i]; // Fror new each line, start the array from the next item in the list, as in 2nd line should skip tushar and start with roy
-			// Hence ,j + i
-			if (j > 0)
-				spaceTillNow = M - wordsTillNow - 1; //Additional one is consider space between two words in a line
-			else
-				spaceTillNow = M - wordsTillNow;
-
-			if (wordsTillNow > M)
-				cost[i][j] = It_MAX;
-			else
+				cost[i][j] = 0;// Initiztize to zero to avoid unnecessary pointer -ve values here
+			if (j + i < n)
 			{
-				cost[i][j + i] = spaceTillNow * spaceTillNow; // Ignore the first cell, because first item is taken by the line above you
-			}
+			
+			wordsTillNow = wordsTillNow + l[j + i]; // Fror new each line, start the array from the next item in the list, as in 2nd line should skip tushar and start with roy
+			// Hence ,j + i
+					if (wordsTillNow + j > M) // To consider spaces between words as well
+						cost[i][j + i] = It_MAX;
+					else
+					{
+						//Additional one is consider space between two words in a line .- j
+						cost[i][j + i] = (M - (wordsTillNow + j)) * (M - (wordsTillNow + j)); // Ignore the first cell, because first item is taken by the line above you
+					}
+		    }
 			  
 		}
 
