@@ -1,0 +1,69 @@
+// ConsoleApplication2.cpp : Defines the entry point for the console application.
+//
+#include "stdafx.h"
+#include <set>
+#include <iostream>
+#include<conio.h>
+#include <sstream>
+#include<stdio.h>
+#include<stdlib.h>
+#include <queue>
+#include <unordered_set>
+
+using namespace std;
+// https://www.geeksforgeeks.org/word-wrap-problem-dp-19/
+// step 1  - Build teh cost matrix. USe sum of square spaces to calcualte cost. UPdate Max value as infinity for words higher than Max width
+
+
+#define It_MAX 2000000000
+#define size 5
+
+void WordWrap(int l[], int n, int M)
+{
+
+	int cost[size][size];// n value
+	// Building the Cost Matrix
+	for (int i = 0; i < n; i++){
+		int spaceTillNow = 0;
+		int wordsTillNow = 0;
+		for (int j = 0; j < n && j + i < n; j++){
+			if (cost[i][j] < 0)
+		     	cost[i][j] = 0;// Initiztize to zero to avoid unnecessary pointer -ve values here
+
+
+			wordsTillNow = wordsTillNow + l[j+i]; // Fror new each line, start the array from the next item in the list, as in 2nd line should skip tushar and start with roy
+			// Hence ,j + i
+			if (j > 0)
+				spaceTillNow = M - wordsTillNow - 1; //Additional one is consider space between two words in a line
+			else
+				spaceTillNow = M - wordsTillNow;
+
+			if (wordsTillNow > M)
+				cost[i][j] = It_MAX;
+			else
+			{
+				cost[i][j + i] = spaceTillNow * spaceTillNow; // Ignore the first cell, because first item is taken by the line above you
+			}
+			  
+		}
+
+	}
+
+
+
+}
+
+
+
+
+
+int main()
+{
+	//int l[] = { 3, 2, 2, 5 }; //  Tom is my uncle
+	int l[] = { 6, 3, 5, 2,4 };
+	int n = sizeof(l) / sizeof(l[0]);
+	int MaxWidth = 10; // Max Width
+	WordWrap(l, n, MaxWidth);
+	return 0;
+
+}
