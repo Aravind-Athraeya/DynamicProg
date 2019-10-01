@@ -13,10 +13,22 @@
 using namespace std;
 // https://www.geeksforgeeks.org/word-wrap-problem-dp-19/
 // step 1  - Build teh cost matrix. USe sum of square spaces to calcualte cost. UPdate Max value as infinity for words higher than Max width
-
+// step 2 - use cost matrix to find mim value
 
 #define It_MAX 2000000000
 #define size 5
+
+
+int printSolution(int p[], int n)
+{
+	int k;
+	if (p[n] == 1)
+		k = 1;
+	else
+		k = printSolution(p, p[n] - 1) + 1;
+	cout << "Line number " << k << ": From word no. " << p[n] << " to " << n << endl;
+	return k;
+}
 
 void WordWrap(int l[], int n, int M)
 {
@@ -48,6 +60,29 @@ void WordWrap(int l[], int n, int M)
 
 	}
 
+
+	int c[size + 1]; // For better intution
+	int p[size + 1];
+
+	c[0] = 0;
+	for (int j = 1; j <= n; j++)
+	{
+		 c[j] = It_MAX;;
+		for (int i = 1; i <= j; i++)
+		{
+			if (c[i - 1] != It_MAX && cost[i -1][j-1] != It_MAX &&
+				(c[i - 1] + cost[i- 1][j -1] < c[j]))
+			{
+				c[j] = c[i - 1] + cost[i -1][j - 1];
+				p[j] = i;
+			}
+
+
+		}
+
+	}
+
+	printSolution(p, n);
 
 }
 
