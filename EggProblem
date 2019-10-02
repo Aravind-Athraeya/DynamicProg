@@ -1,0 +1,53 @@
+// ConsoleApplication2.cpp : Defines the entry point for the console application.
+//
+#include "stdafx.h"
+#include <set>
+#include <iostream>
+#include<conio.h>
+#include <sstream>
+#include<stdio.h>
+#include<stdlib.h>
+#include <queue>
+#include <unordered_set>
+
+using namespace std;
+// https://www.geeksforgeeks.org/word-wrap-problem-dp-19/
+// step 1  - Build teh cost matrix. USe sum of square spaces to calcualte cost. UPdate Max value as infinity for words higher than Max width
+// step 2 - use cost matrix to find mim value
+
+#define It_MAX 2000000000
+#define eggs 2
+#define floor 6
+
+// Step 1: https://www.youtube.com/watch?v=3hcaVyX00_4
+// Step 2: Calcualte for one egg
+// Step 3 : use that to build for 2 eggs
+
+int eggDrop(int n, int k)
+{
+
+	int[eggs][floor];
+
+	for (int i = 0; i < n; i++){
+
+		for (int j = 0; j < n; j++){
+
+		}
+	}
+
+
+	return 0;
+
+}
+
+
+int main()
+{
+	int n = eggs, k = floor;
+
+	printf("nMinimum number of trials in worst case with %d eggs and "
+		"%d floors is %d \n", n, k, eggDrop(n, k));
+
+	return 0;
+
+}
