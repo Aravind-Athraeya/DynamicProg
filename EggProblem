@@ -21,16 +21,17 @@ using namespace std;
 
 // Step 1: https://www.youtube.com/watch?v=3hcaVyX00_4
 //https://www.youtube.com/watch?v=o_AJ3VWQMzA
+//https://www.youtube.com/watch?v=KVfxgpI3Tv0
 // Step 2: Calcualte for one egg
 // Step 3 : use that to build for 2 eggs
 // Formule -  for x = 0 to n-1 then Min{ 1 + Max(f(floor - x, eggs), f(floor - 1, eggs - 1)) }
 
-int GetMax(int egg, int floors)
+int GetMax(int a, int b)
 {
-
-
-
-	return 0;
+	if (a > b)
+		return a;
+	else
+		return b;
 
 }
 
@@ -43,7 +44,7 @@ int eggDrop(int n, int k)
 
 	for (int i = 1; i <= eggs; i++){
 
-		for (int j = 1; j <= floor; j++){
+		for (int j = floor; j > 0; j--){
 
 			if (i == 1 || j == 1)
 			{
@@ -54,12 +55,13 @@ int eggDrop(int n, int k)
 		     else
 			{
 			  
-				 Cost[i][j] = It_MAX; // set it to max and update it based on min value 
+				 Cost[i][j] = floor; // set it to max and update it based on min value 
 							 
-					 
-				 if( j > 1 && (1 + GetMax(i,j)) < Cost[i][j])
+					 // Let say 6th floor, eggdrop(9,3) => splits into  eggdrop(5,2) &&  eggdrop(3,3) 
+				 //-- > Two cases, once if it breaks on 6th and other if it does'nt on 6th
+				 if (j > 1 && (1 + GetMax(Cost[eggs][floor - j], Cost[eggs - 1][floor - 1])) <= Cost[i][j])
 				  {
-					 Cost[i][j] = 1 + GetMax(i, j);
+					 Cost[i][j] = 1 + GetMax(Cost[eggs][floor - j], Cost[i - 1][j - 1]);
 				  }
 
 			
