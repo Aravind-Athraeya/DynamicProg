@@ -1,4 +1,4 @@
-// ConsoleApplication2.cpp : Defines the entry point for the console application.
+/ ConsoleApplication2.cpp : Defines the entry point for the console application.
 //
 #include "stdafx.h"
 #include <set>
@@ -42,38 +42,22 @@ int eggDrop(int n, int k)
 
 	int Cost[eggs + 1][floor + 1];
 
-	for (int i = 1; i <= eggs; i++){
-
-		for (int j = floor; j > 0; j--){
-
-			if (i == 1 || j == 1)
-			{
-				Cost[i][j] = j; 
-				//For one floor alone --=== > f(floor,eggs) =  1 where  Floor is 1
-				//For one egg alone --=== > f(floor,eggs) = floor where  egg is 1
-			}
-		     else
-			{
-			  
-				 Cost[i][j] = floor; // set it to max and update it based on min value 
-							 
-					 // Let say 6th floor, eggdrop(9,3) => splits into  eggdrop(5,2) &&  eggdrop(3,3) 
-				 //-- > Two cases, once if it breaks on 6th and other if it does'nt on 6th
-				 if (j > 1 && (1 + GetMax(Cost[eggs][floor - j], Cost[eggs - 1][floor - 1])) <= Cost[i][j])
-				  {
-					 Cost[i][j] = 1 + GetMax(Cost[eggs][floor - j], Cost[i - 1][j - 1]);
-				  }
-
-			
-			}
-
-
-
-
-
-		}
+	int c = 0;
+	for (int i = 0; i <= floor; i++){
+		Cost[1][i] = i;
 	}
 
+	for (int e = 2; e <= eggs; e++){
+		for (int f = 1; f <= floor; f++){
+			Cost[e][f] = It_MAX;
+			for (int k = 1; k <= f; k++){
+				c = 1 + GetMax(Cost[e - 1][k - 1], Cost[e][f - k]);
+				if (c < Cost[e][f]){
+					Cost[e][f] = c;
+				}
+			}
+		}
+	}
 
 	return Cost[eggs][floor];
 
