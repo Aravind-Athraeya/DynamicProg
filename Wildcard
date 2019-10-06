@@ -1,1 +1,79 @@
+/ ConsoleApplication2.cpp : Defines the entry point for the console application.
 //
+#include "stdafx.h"
+#include <set>
+#include <iostream>
+#include<conio.h>
+#include <sstream>
+#include<stdio.h> 
+#include<stdlib.h>
+#include <queue>
+#include <unordered_set>
+
+using namespace std;
+// https://www.geeksforgeeks.org/word-wrap-problem-dp-19/
+// step 1  - Build teh cost matrix. USe sum of square spaces to calcualte cost. UPdate Max value as infinity for words higher than Max width
+// step 2 - use cost matrix to find mim value
+
+#define StringLength 6
+#define PatternLength 5
+
+// Step 1: https://www.youtube.com/watch?v=3ZDZ-N0EPV0
+// Complete the base cases
+// Algorthim: IF ? , remove one element from pattern and the string to check if they are equal . MatchMatrix[i-1][j-1] If '?'
+// Algorthim: IF * , remove one element from pattern and the string to check if they are equal.MatchMatrix[i][j-1] || MatchMatrix[i-1][j] If '*'
+
+bool WilCard(string varstring, string pattern)
+{
+	bool MatchMatrix[StringLength + 1][PatternLength + 1] = {false};
+
+	// Complete the base cases -- Empty pattern matches with empty string -- Shaniyan logic!
+	MatchMatrix[0][0] = true;
+
+
+	for (int i = 0; i <= StringLength; i++)
+	{
+		for (int j = 0; j <= PatternLength; j++)
+		{
+			if ((i == 0) && (j > 0) || (j == 0) && (i > 0))
+			{
+				MatchMatrix[i][j] = false;
+			}
+			else
+			{
+				if (j > 0)
+				{
+					char p1 = pattern[j - 1];
+					char vari = varstring[i - 1 ];		
+					if (p1 == '?')
+					MatchMatrix[i][j] = MatchMatrix[i - 1][j - 1];
+					else if (p1 == '*')
+					MatchMatrix[i][j] = MatchMatrix[i - 1][j] || MatchMatrix[i][j - 1];
+					else if (vari == p1)
+					MatchMatrix[i][j] = true;
+			   }
+			}
+
+
+
+		}
+
+	}
+
+	bool resutl = MatchMatrix[StringLength + 1][PatternLength + 1];
+
+	return resutl;
+
+}
+
+
+int main()
+{
+	string string = "xbylmz", pattern = "x?y*z";
+
+	cout << string << "\n";
+	cout << pattern << "\n";
+	cout << WilCard(string, pattern) << "\n";
+	return 0;
+
+}
