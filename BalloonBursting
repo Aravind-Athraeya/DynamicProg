@@ -71,19 +71,24 @@ int BurstBallons(int balloons[], int length)
    //   Second order Filling --  adjacent layers to diagonal 
 	//	MaxGain[i][j] = MaxOf{ B[i - 1] * B[i] * B[i + 1] + MaxGain[i][i], B[j - 1] * B[j] * B[j + 1] + MaxGain[j][j] }
 
-
+	// 
 	for (int i = 1; i < M - 2; i++)
 	{ 
+		int order = 0;
 		for (int degree = 1; degree <= M - 1; degree++) 
 		{
-			for (int j = 0; j < M - degree; j++) 
-			{
-				
-				int MaxGainTillNow = 0;
-				int c = B[i - 1] * B[i] * B[i + 1] + MaxGain[i][i];
+			int offset = degree - 1, MaxGainTillNow = 0;
+			for (int j = 0; j <= i; j++) 
+			{							
+				int c = B[i - 1 + offset] * B[i + j + offset] * B[i + offset + 2] + MaxGain[i + degree - j][i + degree - j];
 				if (MaxGainTillNow < c)
 					MaxGainTillNow = c;
 			}
+			order = order + 1;
+			MaxGain[order][order + i] = MaxGain[order + i][order] = MaxGainTillNow;
+			
+			// Updating both sides of the diagonal
+
 		}
 
 
@@ -93,7 +98,11 @@ int BurstBallons(int balloons[], int length)
 
 
 		
-	}
+	////
+	////index:  0  1   2   3   4  5
+	////       + -------------- - +
+	////nums : 1 | 3 | 1 | 5 | 8 | 1
+	////       + -------------- - +
 
 
 
