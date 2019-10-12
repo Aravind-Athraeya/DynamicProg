@@ -75,14 +75,14 @@ int BurstBallons(int balloons[], int length)
 	for (int i = 1; i <= M - 2; i++)
 	{ 
 		int order = 0;
-		for (int degree = 1; degree <= M - 1; degree++) 
+		for (int degree = 1; degree <= M - i; degree++)
 		{
 			int MaxGainTillNow = 0;
 			order = order + 1;
 			for (int j = 0; j <= i; j++) 
 			{					
 
-				int Additionalcase1 = 0,Additionalcase2 = 0, leftIndex = degree - 1, rightIndex = i + degree + 1,current = j + i + degree - 1;
+				int Additionalcase1 = 0,Additionalcase2 = 0, leftIndex = degree - 1, rightIndex = i + degree + 1,current = j + degree ;
 
 				if (degree > (current - 1))
 					Additionalcase1 = 0;
