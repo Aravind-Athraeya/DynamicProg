@@ -78,13 +78,27 @@ int BurstBallons(int balloons[], int length)
 		for (int degree = 1; degree <= M - 1; degree++) 
 		{
 			int MaxGainTillNow = 0;
+			order = order + 1;
 			for (int j = 0; j <= i; j++) 
-			{							
-				int c = B[degree - 1] * B[j + i + degree] * B[i + degree + 1] + MaxGain[i + degree - j][i + degree - j];
+			{					
+
+				int Additionalcase1 = 0,Additionalcase2 = 0, leftIndex = degree - 1, rightIndex = i + degree + 1,current = j + i + degree - 1;
+
+				if (degree > (current - 1))
+					Additionalcase1 = 0;
+				else
+					Additionalcase1 = MaxGain[degree][current - 1];
+
+				if ((current +  1) > (rightIndex - 1))
+					Additionalcase2 = 0 ;
+				else
+					Additionalcase2 = MaxGain[current + 1][rightIndex - 1];
+
+				int c = B[leftIndex] * B[current] * B[rightIndex] + Additionalcase1 + Additionalcase2;
+				
 				if (MaxGainTillNow < c)
 					MaxGainTillNow = c;
 			}
-			order = order + 1;
 			MaxGain[order][order + i] = MaxGain[order + i][order] = MaxGainTillNow;
 			
 			// Updating both sides of the diagonal
