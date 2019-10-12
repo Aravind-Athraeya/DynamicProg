@@ -72,7 +72,7 @@ int BurstBallons(int balloons[], int length)
 	//	MaxGain[i][j] = MaxOf{ B[i - 1] * B[i] * B[i + 1] + MaxGain[i][i], B[j - 1] * B[j] * B[j + 1] + MaxGain[j][j] }
 
 	// 
-	for (int i = 1; i <= M - 2; i++)
+	for (int i = 1; i < M; i++)
 	{ 
 		int order = 0;
 		for (int degree = 1; degree <= M - i; degree++)
@@ -120,8 +120,6 @@ int BurstBallons(int balloons[], int length)
 
 
 
-
-	MaxGain[counter][counter];
 	
 	return MaxGain[1][M];
 
