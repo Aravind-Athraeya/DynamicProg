@@ -1,0 +1,48 @@
+
+#include "stdafx.h"
+#include <set>
+#include <iostream>
+#include<conio.h>
+#include <sstream>
+#include<stdio.h> 
+#include<stdlib.h>
+#include <queue>
+#include <unordered_set>
+
+using namespace std;
+
+
+#define M 4
+
+
+
+bool isExistsInDictionary(string woruhd)
+{
+	string dictionary[] = { "mobile", "samsung", "sam", "sung", "man", "mango",
+		"icecream", "and", "go", "i", "like", "ice", "cream" };
+	int size = sizeof(dictionary) / sizeof(dictionary[0]);
+	for (int i = 0; i < size; i++)
+	if (dictionary[i].compare(woruhd) == 0)
+		return true;
+	return false;
+
+}
+
+bool wordBreak(string woruhd)
+{
+	int WordMatrix[M + 2][M + 2] = {0};
+
+	
+	return false;
+
+
+}
+
+
+int main()
+{
+
+	wordBreak("ilikesamsung") ? cout << "Yes\n" : cout << "No\n";
+	return 0;
+
+}
