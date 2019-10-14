@@ -17,7 +17,8 @@ using namespace std;
 
 bool isExistsInDictionary(string woruhd)
 {
-
+	if (woruhd == "")
+		return true;
 
 
 	string dictionary[] = { "mobile", "samsung", "sam", "sung", "man", "mango",
@@ -57,8 +58,8 @@ bool wordBreakSplit(string word, int (WordBreakMartix)[size], int additive)
 		   else
 		   {
 			   bool recursive = false;
-			   if (WordBreakMartix[additive + 1] != -1)
-				   recursive = WordBreakMartix[additive + 1];
+			   if (second != "" && additive + 2 < size && WordBreakMartix[additive + 2] != -1)
+				   recursive = WordBreakMartix[additive + 2];
 			   else
 				   recursive = wordBreakSplit(second, WordBreakMartix, additive + 1);
 
@@ -85,7 +86,7 @@ bool wordBreakSplit(string word, int (WordBreakMartix)[size], int additive)
 
 bool wordBreakAbstract(string word)
 {
-	int WordBreakMartix[size] = { -1 };
+	int WordBreakMartix[size] = { -1, -1, -1, -1, -1 };
 	if (isExistsInDictionary(word))
 		return true;
 	else
