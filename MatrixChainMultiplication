@@ -18,24 +18,57 @@ using namespace std;
 // Step 3 - Use Cost table to choose minimum cost
  // Dont Mug up the formula -- Write it downa and generalize
 
-
+#define size 5
+#define INTMAX 50000000000
 int MatrixChainMultiplication(int p[], int n)
 {
 
+	// Decalre cost matrix
+	int CostMatrix[size + 1][size + 1] = {0};
+
+	// Fill the diagonal elements
+	int counter = 1;
+	while (counter <= size)
+	{
+		// Cost of Multiplying a matrix with itself is the same. This is for length one
+		CostMatrix[counter][counter] = 0;
+		counter += 1;
+	}
+
+
+	// Fill up for the other ones
+	for (int length = 2; length < size; length++)
+	{
+		for (int i = 1; i <= size - length; i++)
+		{ 
+			int MinCost = INTMAX;
+			for (int j = 1; j < length; j++)
+			{
+				int ComputedCost = p[i - 1] * p[i] * p[i + 1];
+				if (MinCost > ComputedCost)
+					MinCost = ComputedCost;
+			}
+			CostMatrix[i][i + length - 1] = MinCost;
+
+		}
 
 
 
+	}
 
 	return 0;
 
 }
 
+
+
+
 int main()
 {
-	int arr[] = { 1, 2, 3, 4 };
-	int size = sizeof(arr) / sizeof(arr[0]);
+	int arr[] = { 1, 2, 3, 4 , 5};
+	int sizne = sizeof(arr) / sizeof(arr[0]);
 
-	cout << "Minimum number of multiplications is "	<< MatrixChainMultiplication(arr, size);
+	cout << "Minimum number of multiplications is " << MatrixChainMultiplication(arr, sizne);
 	return 0;
 
 }
