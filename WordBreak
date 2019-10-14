@@ -58,8 +58,8 @@ bool wordBreakSplit(string word, int (WordBreakMartix)[size], int additive)
 		   else
 		   {
 			   bool recursive = false;
-			   if (second != "" && additive + 2 < size && WordBreakMartix[additive + 2] != -1)
-				   recursive = WordBreakMartix[additive + 2];
+			   if (second != "" && (additive + i)< size && WordBreakMartix[additive + i] != -1)
+				   recursive = WordBreakMartix[additive + i];
 			   else
 				   recursive = wordBreakSplit(second, WordBreakMartix, additive + 1);
 
