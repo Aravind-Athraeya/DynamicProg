@@ -31,30 +31,48 @@ bool isExistsInDictionary(string woruhd)
 
 }
 
-bool wordBreakSplit(string word)
+bool wordBreakSplit(string word, int (WordBreakMartix)[size], int additive)
 {
 	bool result = false;
 	string first, second;
-
 	// base cast for empty string
+
+	if (word == "")
+		return true;
 	
-	for (int i = 1; i <= size; i++)
+	int length = word.length();
+	for (int i = 1; i <= length; i++)
 	{
 	
 	    	first = word.substr(0, i);
-		    second = word.substr(i, size);
+			second = word.substr(i, length);
 		   bool DictionaryCheckFirstSplit = isExistsInDictionary(first);
 		   bool DictionaryCheckSecondSplit = isExistsInDictionary(second);
 
 		   if (DictionaryCheckFirstSplit && DictionaryCheckSecondSplit)
 		   {
+			   WordBreakMartix[additive] = 1;
 			   return true;
 		   }
 		   else
 		   {
-			   result = DictionaryCheckFirstSplit && wordBreakSplit(second);
+			   bool recursive = false;
+			   if (WordBreakMartix[additive + 1] != -1)
+				   recursive = WordBreakMartix[additive + 1];
+			   else
+				   recursive = wordBreakSplit(second, WordBreakMartix, additive + 1);
+
+			   result = recursive && DictionaryCheckFirstSplit;
 			   if (result)
+			   {
+				   WordBreakMartix[additive]= 1;
 				   break;
+			   }
+			   else
+			   {
+				   WordBreakMartix[additive] = 0;
+			   }
+							
 		   }
 	
 
@@ -67,10 +85,11 @@ bool wordBreakSplit(string word)
 
 bool wordBreakAbstract(string word)
 {
+	int WordBreakMartix[size] = { -1 };
 	if (isExistsInDictionary(word))
 		return true;
 	else
-		return wordBreakSplit(word);
+		return wordBreakSplit(word, WordBreakMartix, 0);
 
 
 
