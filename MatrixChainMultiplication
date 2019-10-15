@@ -10,7 +10,7 @@
 #include <unordered_set>
 
 using namespace std;
-
+ 
 
 //https://www.youtube.com/watch?v=vgLJZMUfnsU
 //Step 1 -  Cost of multipliying matrix with itself is zero.
