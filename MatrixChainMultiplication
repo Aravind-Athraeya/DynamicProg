@@ -16,7 +16,7 @@ using namespace std;
 //Step 1 -  Cost of multipliying matrix with itself is zero.
 //Step 2 - Bottom up approch - Start from 1 to go N length.
 // Step 3 - Use Cost table to choose minimum cost
- // Dont Mug up the formula -- Write it down and generalize -- Added the analysis sheet image from drive
+// Dont Mug up the formula -- Write it down and generalize -- Added the analysis sheet image from drive
 // Figure double double logic
 
 // Analysis here - https://drive.google.com/open?id=0B3AN8dMNKcWVSHNiZ0liUGR1VGFJSUtteldGZW5sdlZfRUVn
@@ -26,7 +26,7 @@ int MatrixChainMultiplication(int p[], int n)
 {
 
 	// Decalre cost matrix
-	int CostMatrix[size + 1][size + 1] = {0};
+	int CostMatrix[size + 1][size + 1] = { 0 };
 
 	// Fill the diagonal elements
 	int counter = 1;
@@ -42,16 +42,19 @@ int MatrixChainMultiplication(int p[], int n)
 	for (int length = 2; length < size; length++)
 	{
 		for (int i = 1; i <= size - length; i++)
-		{ 
+		{
 			int MinCost = INTMAX;
 			int k = i + length - 1;
 			for (int j = 1; j < length; j++)
 			{
 				//int ComputedCost = CostMatrix[0][0] + CostMatrix [1][1] + p[i - 1] * p[i] * p[i + 1]; // splitting out clarity
-				int Firstcomponent = CostMatrix[i][length - j];
-				int SecondComponent = CostMatrix[length - j + 1][k];
-				int Bportion = p[i - 1] * p[(length - j + i) - 1] * p[i + length - 1]; // Add - 1 to everything P. 
-					int ComputedCost = Firstcomponent + SecondComponent + Bportion;
+				int Firstcomponent = CostMatrix[i][length - j + i - 1];
+				int SecondComponent = CostMatrix[length - j + i][k];
+				int a = i - 1;
+				int b = (length - j + i) - 1;
+				int c = i + length - 1;
+				int Bportion = p[a] * p[b] * p[c]; // Add - 1 to everything P. 
+				int ComputedCost = Firstcomponent + SecondComponent + Bportion;
 				if (MinCost > ComputedCost)
 					MinCost = ComputedCost;
 			}
@@ -72,7 +75,7 @@ int MatrixChainMultiplication(int p[], int n)
 
 int main()
 {
-	int arr[] = { 1, 2, 3, 4 , 5};
+	int arr[] = { 1, 2, 3, 4, 5 };
 	int sizne = sizeof(arr) / sizeof(arr[0]);
 
 	cout << "Minimum number of multiplications is " << MatrixChainMultiplication(arr, sizne);
