@@ -1,0 +1,67 @@
+
+#include "stdafx.h"
+#include <set>
+#include <iostream>
+#include<conio.h>
+#include <sstream>
+#include<stdio.h> 
+#include<stdlib.h>
+#include <queue>
+#include <unordered_set>
+
+using namespace std;
+
+
+// Rod cutting
+// Intuition is - Firstsolve manually in paper for 3-4 cases. Figure out the pattern for memoization
+// L= 0 & L=1 base case
+// L =2 l/1 * P[1] or L/2* p[2] . Whichever is max. Same logic use iteratively.
+
+
+#define size 8
+int RodCutter(int p[])
+{
+
+	// Decalre cost matrix
+	int GainMatrix[size + 1] = { 0 };
+
+	// Set for length=0 because will be used as a reference for memoization
+	GainMatrix[0] = 0;
+	// Set for length = 1 for 1 as well because,
+
+	GainMatrix[1] = 1;
+
+	for (int length = 2; length <= size; length++) // iterate for each length
+	{
+		int MaxtillNow = 0;
+		for (int i = 1; i <= length; i++) // Divide by each iterant size to find the max value and update it
+		{
+			int quotient = length / i;
+			int remaining = length % i;
+			int max = quotient * p[i - 1] + GainMatrix[remaining];
+			if (max > MaxtillNow)
+				MaxtillNow = max;
+
+		}
+		GainMatrix[length] = MaxtillNow;
+	}
+
+
+
+
+return GainMatrix[size];
+
+}
+
+
+
+
+int main()
+{
+	int arr[] = { 1 ,  5 ,  8  , 9  ,10  ,17 , 17,  20 };
+	int sizne = sizeof(arr) / sizeof(arr[0]);
+
+	cout << "Maximum value from rod cutting is " << RodCutter(arr);
+	return 0;
+
+}
