@@ -10,6 +10,7 @@
 #include <queue>
 #include <unordered_set>
 
+
 using namespace std;
 // https://www.geeksforgeeks.org/word-wrap-problem-dp-19/
 // step 1  - Build teh cost matrix. USe sum of square spaces to calcualte cost. UPdate Max value as infinity for words higher than Max width
